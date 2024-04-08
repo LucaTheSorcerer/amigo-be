@@ -1,5 +1,10 @@
 package org.example.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.antlr.v4.runtime.Token;
 import org.example.config.auth.TokenProvider;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Authentication", description = "Endpoints for user authentication")
 public class AuthController {
 
     @Autowired
@@ -27,12 +33,26 @@ public class AuthController {
     private TokenProvider tokenService;
 
     @PostMapping("/signup")
+    @Operation(summary = "Sign up a new user", description = "Register a new user and return status 201 on successful registration.",
+    responses = {
+            @ApiResponse(responseCode = "201", description = "User registered successfully",
+                    content = @Content(schema = @Schema(implementation = ResponseEntity.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid user data",
+                    content = @Content)
+    })
     public ResponseEntity<?> signUp(@RequestBody @Valid SignUpDto data) {
         service.signUp(data);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/signin")
+    @Operation(summary = "Sign in a new user", description = "Authenticate a new user and return a JWT token.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "User authenticated successfully",
+                            content = @Content(schema = @Schema(implementation = JwtDto.class))),
+                    @ApiResponse(responseCode = "401", description = "Invalid credentials",
+                            content = @Content)
+            })
     public ResponseEntity<JwtDto> signIn(@RequestBody @Valid SignInDto data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var authUser = authenticationManager.authenticate(usernamePassword);

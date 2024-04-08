@@ -23,6 +23,23 @@ public class AuthConfig {
     @Autowired
     SecurityFilter securityFilter;
 
+    private static final String[] AUTH_WHITELIST = {
+
+            // for Swagger UI v2
+            "/v2/api-docs",
+            "/swagger-ui.html",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/webjars/**",
+
+            // for Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/v3/api-docs.yaml"
+    };
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
@@ -31,6 +48,7 @@ public class AuthConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/auth/*").permitAll()
+                        .requestMatchers(AUTH_WHITELIST).permitAll()
 //                        .requestMatchers()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
