@@ -70,7 +70,7 @@ http://localhost:8080/swagger-ui
 
 - **Spring Security**: Configures authentication and authorization for secure access.
 - **JWT for Sessions**: Utilizes JSON Web Tokens for stateless session management.
-<!-- - **Cross-Origin Resource Sharing (CORS)**: Configures CORS for secure resource sharing between different domains. -->
+- **Cross-Origin Resource Sharing (CORS)**: Configures CORS for secure resource sharing between different domains.
 <!-- - **HTTPS Enforcement**: Encourages or enforces the use of HTTPS to secure data in transit. -->
 
 
