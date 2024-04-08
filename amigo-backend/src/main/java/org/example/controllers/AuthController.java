@@ -41,8 +41,16 @@ public class AuthController {
                     content = @Content)
     })
     public ResponseEntity<?> signUp(@RequestBody @Valid SignUpDto data) {
-        service.signUp(data);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+//        service.signUp(data);
+//        return ResponseEntity.status(HttpStatus.CREATED).build();
+        try {
+            service.signUp(data);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (Exception e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
     }
 
     @PostMapping("/signin")
