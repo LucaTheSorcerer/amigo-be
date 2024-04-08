@@ -33,7 +33,16 @@ public class AuthController {
     private TokenProvider tokenService;
 
     @PostMapping("/signup")
-    @Operation(summary = "Sign up a new user", description = "Register a new user and return status 201 on successful registration.",
+    @Operation(summary = "Sign up a new user",description = """
+                             Register a new user and return status 201 on successful registration. 
+                             Password must meet the following criteria:
+                             - At least 8 characters long
+                             - At least one digit
+                             - At least one lowercase letter
+                             - At least one uppercase letter
+                             - At least one special character (@#$%^&+=)
+                             - Must not contain any spaces
+                             """,
     responses = {
             @ApiResponse(responseCode = "201", description = "User registered successfully",
                     content = @Content(schema = @Schema(implementation = ResponseEntity.class))),
