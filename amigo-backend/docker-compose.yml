@@ -30,5 +30,13 @@ services:
     ports:
       - "3000:80"
 
+  bot:
+    container_name: amigo-bot
+    build: /Users/lulu/UBB/ANII/Semestrul4/amigo-bot/server
+    ports:
+      - "5001:5001"
+    environment:
+      OPEN_API_KEY: ${OPEN_API_KEY}
+
 volumes:
     postgres-data:
