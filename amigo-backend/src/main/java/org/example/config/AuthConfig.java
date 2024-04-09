@@ -48,7 +48,7 @@ public class AuthConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/auth/*").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/send-message").permitAll() // Allow unauthenticated access to this endpoint
+                        .requestMatchers(HttpMethod.POST, "/api/send-message").permitAll()
                         .requestMatchers(AUTH_WHITELIST).permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

@@ -15,7 +15,8 @@ services:
     container_name: amigo-backend
     build: .
     ports:
-      - "8080:8080"
+#      - "8080:8080"
+      - "8443:8443"
     depends_on:
       - postgres
     environment:

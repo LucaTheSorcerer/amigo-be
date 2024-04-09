@@ -2,14 +2,10 @@ package org.example.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import org.springframework.http.HttpStatus;
 
-
-import java.util.Map;
 
 @Service
 public class FastApiService {
@@ -18,7 +14,7 @@ public class FastApiService {
 
     @Autowired
     public FastApiService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://bot:5001").build(); 
+        this.webClient = webClientBuilder.baseUrl("http://bot:5001").build();
     }
 
     public Mono<String> sendMessage(String input) {
