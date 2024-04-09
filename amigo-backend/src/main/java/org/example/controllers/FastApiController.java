@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.example.dtos.InputString;
 import org.example.services.FastApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,8 @@ public class FastApiController {
                     @ApiResponse(responseCode = "500", description = "Server error",
                             content = @Content)
             })
-    public Mono<String> sendMessage(@RequestBody String input) {
-        return fastApiService.sendMessage(input);
+    public Mono<String> sendMessage(@RequestBody InputString input) {
+        return fastApiService.sendMessage(input.getInput_string());
     }
+
 }
