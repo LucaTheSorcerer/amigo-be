@@ -2,16 +2,14 @@ package org.example.entities;
 
 import jakarta.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.example.enums.UserRole;
 import org.example.utils.ValidEmail;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.validation.constraints.Email;
+import org.example.utils.EnhancedUserDetails;
 
 
 import java.util.Collection;
@@ -20,10 +18,11 @@ import java.util.List;
 @Table()
 @Entity(name = "users")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class User implements UserDetails {
+public class User implements EnhancedUserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
