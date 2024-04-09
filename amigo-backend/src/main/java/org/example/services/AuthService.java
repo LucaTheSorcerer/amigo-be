@@ -42,6 +42,10 @@ public class AuthService implements UserDetailsService {
             throw  new JwtException("Username already exists");
         }
 
+        if(repository.findByEmail(data.email()) != null) {
+            throw new RuntimeException("Email already in use");
+        }
+
         List<String> passwordErrors = passwordPolicyValidator.validatePassword(data.password());
         if (!passwordErrors.isEmpty()) {
             StringJoiner joiner = new StringJoiner(" ");
@@ -50,7 +54,8 @@ public class AuthService implements UserDetailsService {
         }
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.login(), encryptedPassword, data.role());
+//        User newUser = new User(data.login(), encryptedPassword, data.role());
+        User newUser = new User(data.login(), encryptedPassword, data.email(), data.role());
         return repository.save(newUser);
 
     }

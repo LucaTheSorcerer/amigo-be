@@ -1,14 +1,18 @@
 package org.example.entities;
 
 import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.enums.UserRole;
+import org.example.utils.ValidEmail;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import javax.validation.constraints.Email;
+
 
 import java.util.Collection;
 import java.util.List;
@@ -27,6 +31,11 @@ public class User implements UserDetails {
     private String login;
     private String password;
 
+
+    @Email
+    @Column(unique = true)
+    private String email;
+
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
@@ -35,6 +44,13 @@ public class User implements UserDetails {
             this.password = password;
             this.role = role;
         }
+
+    public User(String login, String password, String email, UserRole role) {
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
