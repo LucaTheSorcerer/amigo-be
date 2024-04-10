@@ -49,6 +49,8 @@ public class AuthConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/auth/*").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/send-message").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/update-email/*").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/update-username/*").permitAll()
                         .requestMatchers(AUTH_WHITELIST).permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
