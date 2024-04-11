@@ -15,7 +15,7 @@ It serves as a guide for setup, deployment, and understanding the codebase's str
 
 ## Complete List of URL Path from Swagger UI, currently running on localhost
 
-http://localhost:8080/swagger-ui
+https://localhost:8443/swagger-ui
 
 ## Prerequisites
 
